@@ -40,6 +40,8 @@ static int cmd_help(char *args);
 
 static int cmd_si(char *args);
 
+static int cmd_info(char *args);
+
 static struct {
 	char *name;
 	char *description;
@@ -49,6 +51,7 @@ static struct {
 	{ "c", "Continue the execution of the program", cmd_c },
 	{ "q", "Exit NEMU", cmd_q },
         { "si", "Single-step execution",cmd_si },
+        { "info", "Print register's status", cmd_info },
 
 	/* TODO: Add more commands */
 
@@ -83,13 +86,32 @@ static int cmd_si(char *args){
         char *arg = strtok(args," ");
         // printf("%s\n",arg);
         if(arg == NULL){
-                printf("tpp few arguments.\n");
+                printf("too few arguments.\n");
                 return 1;
         }
         int num = atoi(arg);
         cpu_exec(num);
         return 0;
 };
+
+static int cmd_info(char *args){
+        char *arg = strtok(args," ");
+        printf("%s\n",arg);
+        //cpu info
+        if(strcmp(arg,"r") == 0){
+                printf("eax is %x\n",cpu.eax);
+                printf("ecx is %x\n",cpu.ecx);
+                printf("edx is %x\n",cpu.edx);
+                printf("ebx is %x\n",cpu.ebx);
+                printf("esp is %x\n",cpu.esp);
+                printf("ebp is %x\n",cpu.ebp);
+                printf("esi is %x\n",cpu.esi);
+                printf("edi is %x\n",cpu.edi);
+                printf("----------------------------------\n");
+        }
+         
+        return 0;
+}
 
 void ui_mainloop() {
 	while(1) {
