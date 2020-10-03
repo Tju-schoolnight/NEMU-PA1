@@ -42,6 +42,8 @@ static int cmd_si(char *args);
 
 static int cmd_info(char *args);
 
+static int cmd_x(char *args);
+
 static struct {
 	char *name;
 	char *description;
@@ -52,6 +54,7 @@ static struct {
 	{ "q", "Exit NEMU", cmd_q },
         { "si", "Single-step execution",cmd_si },
         { "info", "Print register's status", cmd_info },
+        { "x", "Scanning memory", cmd_x },
 
 	/* TODO: Add more commands */
 
@@ -110,6 +113,51 @@ static int cmd_info(char *args){
                 printf("----------------------------------\n");
         }
          
+        return 0;
+}
+
+static int cmd_x(char *args){
+        //
+        if(args == NULL){
+                printf("too few parameter!\n");
+                return 1;
+        }
+        
+        char *arg = strtok(args," ");     
+        if(arg == NULL){
+                printf("too few parameter!\n");
+                return 1;
+        }
+        int n = atoi(arg);
+        char *EXPR = strtok(NULL," ");
+        if(EXPR == NULL){
+                printf("too few parameter!\n");
+                return 1;
+        } 
+        if(strtok(NULL," ") != NULL){
+                printf("too many parameter!\n");
+                return 1;
+        } 
+        bool success = true;
+        //swaddr_t addr = expr(EXPR , &success);
+        if(success != true){
+                printf("ERROR!\n");
+                return 1;
+        }
+        char *str;
+        //swaddr_t addr = atoi(EXPR);
+        swaddr_t addr = strtol(EXPR,&str,16);
+        //printf(%#lX\n",ad);
+        //Scan 4 bytes every time when scanning memory
+        for(int i = 0;i < n;i++){
+                uint32_t data = swaddr_read(addr + i*4,4);
+                printf("0x%08x ",addr + i*4);
+                for(int j = 0;j < 4;j++){
+                        printf("0x%02x ",data & 0xff);
+                        data = data >> 8;
+                }
+                printf("\n");
+        }
         return 0;
 }
 
