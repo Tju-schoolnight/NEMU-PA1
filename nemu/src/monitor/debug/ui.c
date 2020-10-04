@@ -101,7 +101,6 @@ static int cmd_si(char *args){
 
 static int cmd_info(char *args){
         char *arg = strtok(args," ");
-        printf("%s\n",arg);
         //cpu status
         if(strcmp(arg,"r") == 0){
                 printf("eax is %x\n",cpu.eax);
@@ -112,9 +111,7 @@ static int cmd_info(char *args){
                 printf("ebp is %x\n",cpu.ebp);
                 printf("esi is %x\n",cpu.esi);
                 printf("edi is %x\n",cpu.edi);
-                printf("----------------------------------\n");
-        }
-         
+        }  
         return 0;
 }
 
