@@ -88,11 +88,14 @@ static int cmd_help(char *args) {
 static int cmd_si(char *args){
         char *arg = strtok(args," ");
         if(arg == NULL){
-                printf("too few arguments.\n");
-                return 1;
+                cpu_exec(1);
+                return 0;
         }
-        int times = atoi(arg);
-        cpu_exec(times);
+        int times;
+        sscanf(arg,"%d",&times);
+        int i;
+        for(i = 0;i < times;i++)
+        cpu_exec(1);
         return 0;
 };
 
