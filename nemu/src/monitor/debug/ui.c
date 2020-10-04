@@ -140,14 +140,14 @@ static int cmd_x(char *args){
                 return 1;
         } 
         bool flag = true;
-        //swaddr_t addr = expr(EXPR , &success);
+        //swaddr_t addr = expr(EXPR , &flag);
         if(flag != true){
                 printf("ERROR!\n");
                 return 1;
         }
-        char *s;
+        char *str;
         //swaddr_t addr = atoi(EXPR);
-        swaddr_t addr = strtol(EXPR,&s,16);
+        swaddr_t addr = strtol(EXPR,&str,16);
         //Scan 4 bytes every time when scanning memory
         int i,j;
         for(i = 0;i < times;i++){
