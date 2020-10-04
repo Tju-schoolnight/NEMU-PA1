@@ -145,9 +145,9 @@ static int cmd_x(char *args){
                 printf("ERROR!\n");
                 return 1;
         }
-        char *str;
+        char *s;
         //swaddr_t addr = atoi(EXPR);
-        swaddr_t addr = strtol(EXPR,&str,16);
+        swaddr_t addr = strtol(EXPR,&s,16);
         //Scan 4 bytes every time when scanning memory
         int i,j;
         for(i = 0;i < times;i++){
