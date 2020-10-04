@@ -87,20 +87,19 @@ static int cmd_help(char *args) {
 
 static int cmd_si(char *args){
         char *arg = strtok(args," ");
-        // printf("%s\n",arg);
         if(arg == NULL){
                 printf("too few arguments.\n");
                 return 1;
         }
-        int num = atoi(arg);
-        cpu_exec(num);
+        int times = atoi(arg);
+        cpu_exec(times);
         return 0;
 };
 
 static int cmd_info(char *args){
         char *arg = strtok(args," ");
         printf("%s\n",arg);
-        //cpu info
+        //cpu status
         if(strcmp(arg,"r") == 0){
                 printf("eax is %x\n",cpu.eax);
                 printf("ecx is %x\n",cpu.ecx);
@@ -117,7 +116,6 @@ static int cmd_info(char *args){
 }
 
 static int cmd_x(char *args){
-        //
         if(args == NULL){
                 printf("too few parameter!\n");
                 return 1;
@@ -128,7 +126,7 @@ static int cmd_x(char *args){
                 printf("too few parameter!\n");
                 return 1;
         }
-        int n = atoi(arg);
+        int times = atoi(arg);
         char *EXPR = strtok(NULL," ");
         if(EXPR == NULL){
                 printf("too few parameter!\n");
@@ -147,12 +145,12 @@ static int cmd_x(char *args){
         char *str;
         //swaddr_t addr = atoi(EXPR);
         swaddr_t addr = strtol(EXPR,&str,16);
-        //printf(%#lX\n",ad);
         //Scan 4 bytes every time when scanning memory
-        for(int i = 0;i < n;i++){
+        int i,j;
+        for(i = 0;i < times;i++){
                 uint32_t data = swaddr_read(addr + i*4,4);
                 printf("0x%08x ",addr + i*4);
-                for(int j = 0;j < 4;j++){
+                for(j = 0;j < 4;j++){
                         printf("0x%02x ",data & 0xff);
                         data = data >> 8;
                 }
