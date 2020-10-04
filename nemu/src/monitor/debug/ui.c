@@ -130,8 +130,8 @@ static int cmd_x(char *args){
                 return 1;
         }
         int times = atoi(arg);
-        char *EXPR = strtok(NULL," ");
-        if(EXPR == NULL){
+        char *str_E = strtok(NULL," ");
+        if(str_E == NULL){
                 printf("too few parameter!\n");
                 return 1;
         } 
@@ -140,14 +140,14 @@ static int cmd_x(char *args){
                 return 1;
         } 
         bool flag = true;
-        //swaddr_t addr = expr(EXPR , &flag);
+        //swaddr_t addr = expr(str_E , &flag);
         if(flag != true){
                 printf("ERROR!\n");
                 return 1;
         }
         char *str;
-        //swaddr_t addr = atoi(EXPR);
-        swaddr_t addr = strtol(EXPR,&str,16);
+        //swaddr_t addr = atoi(str_E);
+        swaddr_t addr = strtol(str_E,&str,16);
         //Scan 4 bytes every time when scanning memory
         int i,j;
         for(i = 0;i < times;i++){
