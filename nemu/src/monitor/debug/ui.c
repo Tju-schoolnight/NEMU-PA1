@@ -139,9 +139,9 @@ static int cmd_x(char *args){
                 printf("too many parameter!\n");
                 return 1;
         } 
-        bool success = true;
+        bool flag = true;
         //swaddr_t addr = expr(EXPR , &success);
-        if(success != true){
+        if(flag != true){
                 printf("ERROR!\n");
                 return 1;
         }
