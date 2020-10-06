@@ -234,7 +234,7 @@ int eval(int l,int r){
                 }
         }
         Assert(1,"wrong input!\n");
-        return -1;
+        return -100;
 }
 
 uint32_t expr(char *e, bool *success) {
