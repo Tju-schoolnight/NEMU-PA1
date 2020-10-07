@@ -118,6 +118,8 @@ static int cmd_info(char *args){
                 printf("esi is %x\n",cpu.esi);
                 printf("edi is %x\n",cpu.edi);
         }  
+        else if(args[0] == 'w')
+                info_wp();
         return 0;
 }
 
