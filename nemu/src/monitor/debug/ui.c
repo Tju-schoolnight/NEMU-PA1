@@ -46,6 +46,8 @@ static int cmd_x(char *args);
 
 static int cmd_p(char *args);
 
+static int cmd_w(char *args);
+
 static struct {
 	char *name;
 	char *description;
@@ -58,6 +60,7 @@ static struct {
         { "info", "Print register's status", cmd_info },
         { "x", "Scanning memory", cmd_x },
         { "p", "Evaluate expression", cmd_p },
+        { "w", "Set watchpoint", cmd_w},
 
 	/* TODO: Add more commands */
 
@@ -170,6 +173,18 @@ static int cmd_p(char *args){
                 printf("0x%x:\t%d\n", ans, ans);
         else
                 printf("wrong!");
+        return 0;
+}
+
+static int cmd_w(char *args){
+        WP *p;
+        bool suc;
+        p = new_wp();
+        printf("Watchpoint %d: %s\n", p->NO, args);
+        p->val = expr(args, &suc);
+        strcpy(p->expr, args);
+        if(!suc)          Assert(1,"wrong!\n");
+        printf("Value:%d\n", p->val);
         return 0;
 }
 
