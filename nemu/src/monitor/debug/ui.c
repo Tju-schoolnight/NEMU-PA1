@@ -48,6 +48,8 @@ static int cmd_p(char *args);
 
 static int cmd_w(char *args);
 
+static int cmd_d(char *args);
+
 static struct {
 	char *name;
 	char *description;
@@ -57,10 +59,11 @@ static struct {
 	{ "c", "Continue the execution of the program", cmd_c },
 	{ "q", "Exit NEMU", cmd_q },
         { "si", "Single-step execution",cmd_si },
-        { "info", "Print register's status", cmd_info },
+        { "info", "Print status of register of watchpoint", cmd_info },
         { "x", "Scanning memory", cmd_x },
         { "p", "Evaluate expression", cmd_p },
         { "w", "Set watchpoint", cmd_w},
+        { "d", "Delete watchpoint", cmd_d},
 
 	/* TODO: Add more commands */
 
@@ -187,6 +190,13 @@ static int cmd_w(char *args){
         strcpy(p->expr, args);
         if(!suc)          Assert(1,"wrong!\n");
         printf("Value:%d\n", p->val);
+        return 0;
+}
+
+static int cmd_d(char *args){
+        int n;
+        sscanf(args, "%d", &n);
+        delete_wp(n);
         return 0;
 }
 
